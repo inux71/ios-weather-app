@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SelectCityView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @StateObject private var viewModel: SelectCityViewModel = SelectCityViewModel()
     
     var body: some View {
@@ -17,7 +19,12 @@ struct SelectCityView: View {
                     CityLabel(
                         name: city.name,
                         country: city.country,
-                        countryCode: city.countryCode
+                        countryCode: city.countryCode,
+                        onTap: {
+                            viewModel.saveToUserDefaults(city: city)
+                            
+                            dismiss()
+                        }
                     )
                 }
             }

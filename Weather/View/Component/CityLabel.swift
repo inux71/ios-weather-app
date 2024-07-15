@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct CityLabel: View {
-    @Environment(\.dismiss) private var dismiss
-    
     let name: String
     let country: String
     let countryCode: String
+    let onTap: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -34,7 +33,7 @@ struct CityLabel: View {
         .frame(maxWidth: .infinity, minHeight: 32)
         .contentShape(Rectangle())
         .onTapGesture {
-            dismiss()
+            onTap()
         }
         .padding(.horizontal, 8)
     }
@@ -44,6 +43,7 @@ struct CityLabel: View {
     CityLabel(
         name: "Gliwice",
         country: "Poland",
-        countryCode: "PL"
+        countryCode: "PL",
+        onTap: {}
     )
 }

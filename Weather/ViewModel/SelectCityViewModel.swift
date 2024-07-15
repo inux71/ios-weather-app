@@ -9,6 +9,7 @@ import Foundation
 
 class SelectCityViewModel: ObservableObject {
     private let geocodingService: GeocodingService = GeocodingService()
+    private let userDefaultsRepository: UserDefaultsRepository = UserDefaultsRepository()
     
     @Published var text: String = ""
     @Published var cities: [City] = []
@@ -31,5 +32,11 @@ class SelectCityViewModel: ObservableObject {
                 print("Unknown Error")
             }
         }
+    }
+    
+    func saveToUserDefaults(city: City) {
+        userDefaultsRepository.write(forKey: "name", value: city.name)
+        userDefaultsRepository.write(forKey: "latitude", value: city.latitude)
+        userDefaultsRepository.write(forKey: "longitude", value: city.longitude)
     }
 }

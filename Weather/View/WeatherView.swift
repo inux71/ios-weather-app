@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct WeatherView: View {
+    @StateObject private var viewModel: WeatherViewModel = WeatherViewModel()
+    
     var body: some View {
         VStack(alignment: .center) {
             Text("Weather View")
         }
-        .navigationTitle("Gliwice")
+        .navigationTitle(viewModel.cityName)
         .toolbar {
             NavigationLink(destination: SelectCityView()) {
                 Image(systemName: "magnifyingglass")
@@ -21,6 +23,9 @@ struct WeatherView: View {
             NavigationLink(destination: SettingsView()) {
                 Image(systemName: "gear")
             }
+        }
+        .onAppear {
+            viewModel.readCityNameFromUserDefaults()
         }
     }
 }
