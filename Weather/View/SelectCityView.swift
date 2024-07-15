@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct SelectCityView: View {
-    @State private var text: String = ""
+    @StateObject private var viewModel: SelectCityViewModel = SelectCityViewModel()
     
     var body: some View {
         ScrollView {
             LazyVStack {
-                ForEach(1...3, id: \.self) { _ in
+                ForEach(viewModel.cities, id: \.self) { city in
                     CityLabel(
-                        name: "Gliwice",
-                        country: "Poland",
-                        countryCode: "PL"
+                        name: city.name,
+                        country: city.country,
+                        countryCode: city.countryCode
                     )
                 }
             }
         }
         .navigationTitle("Search City")
         .searchable(
-            text: $text,
+            text: $viewModel.text,
             prompt: "Search city"
         )
+        .onChange(of: viewModel.text) { _, _ in
+            viewModel.getCities()
+        }
     }
 }
 
