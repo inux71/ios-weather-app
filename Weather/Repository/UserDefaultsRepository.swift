@@ -16,6 +16,10 @@ class UserDefaultsRepository {
         return UserDefaults.standard.string(forKey: key) ?? defaultValue
     }
     
+    func readBool(forKey key: String) -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
+    }
+    
     func clear() {
         if let bundleID = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleID)

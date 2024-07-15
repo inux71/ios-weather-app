@@ -8,9 +8,28 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
+    
     var body: some View {
-        Text("Settings View")
-            .navigationTitle("Settings")
+        List {
+            Toggle("Theme", isOn: $viewModel.darkMode)
+                .onChange(of: viewModel.darkMode) {
+                    viewModel.changeTheme()
+                }
+            
+            Button("Clear cache", role: .destructive) {
+                viewModel.clearCache()
+                
+                viewModel.isPresented = true
+            }
+            .alert("Cache cleared", isPresented: $viewModel.isPresented) {
+                Button("OK", role: .cancel) {}
+            }
+        }
+        .navigationTitle("Settings")
+        .onAppear {
+            viewModel.readThemeFromUserDefaults()
+        }
     }
 }
 
