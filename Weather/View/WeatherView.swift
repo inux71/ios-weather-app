@@ -12,7 +12,15 @@ struct WeatherView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            Text("Weather View")
+            Image(systemName: viewModel.getWeatherImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 64, height: 64)
+            
+            Text(String(format: "%.1f℃", viewModel.weatherInfo.current.temperature))
+                 .font(.system(size: 64))
+            
+            Text(viewModel.getWeatherDescription())
         }
         .navigationTitle(viewModel.cityName)
         .toolbar {
@@ -25,7 +33,7 @@ struct WeatherView: View {
             }
         }
         .onAppear {
-            viewModel.readCityNameFromUserDefaults()
+            viewModel.initDataFromUserDefaults()
         }
     }
 }

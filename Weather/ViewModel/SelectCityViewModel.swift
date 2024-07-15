@@ -22,11 +22,11 @@ class SelectCityViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.cities = cities
                 }
-            } catch GeocodingError.invalidURL {
+            } catch APIError.invalidURL {
                 print("Invalid URL")
-            } catch GeocodingError.invalidData {
+            } catch APIError.invalidData {
                 print("Invalid Data")
-            } catch GeocodingError.invalidResponse {
+            } catch APIError.invalidResponse {
                 print("Invalid Response")
             } catch {
                 print("Unknown Error")
